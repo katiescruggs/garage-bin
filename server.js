@@ -62,4 +62,21 @@ app.get('/api/v1/items/:name', (request, response) => {
     })
 });
 
+app.patch('/api/v1/items/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('items').where('id', id).update(request.body)
+    .then(item => {
+      if (item) {
+        return response.status(201).json({ success: `Updated item ${id}'s ${Object.keys(request.body)}`});
+      }
+      else {
+        return response.status(404).json({ error: `No item with id ${id} found.`});
+      }
+    })
+    .catch(error => {
+      return response.status(500).json({ error });
+    })
+});
+
 module.exports = httpServer;

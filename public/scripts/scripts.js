@@ -33,7 +33,19 @@ const updateCleanliness = (cleanliness) => {
 
 const displayItems = (items) => {
   items.forEach(item => {
-    $('#items-ul').append(`<li data-id=${item.id}>${item.name}</li>`);
+    $('#items-holder').append(`
+      <div class="item">
+        <h4 data-id=${item.id}>${item.name}</h4>
+        <div class="details">
+          <p>This is lingering here because ${item.reason}</p>
+          <select id="select-${item.id}" class="change-cleanliness">
+            <option value="Sparkling">Sparkling</option>
+            <option value="Dusty">Dusty</option>
+            <option value="Rancid">Rancid</option>
+          </select>
+        </div>
+      </div>`);
+    $(`#select-${item.id}`).val(item.cleanliness);
   });
 };
 
@@ -52,8 +64,8 @@ const addItem = async (name, reason, cleanliness) => {
 };
 
 const sortAscending = (a, b) => {
-  const valueA = $(a).text().toLowerCase();
-  const valueB = $(b).text().toLowerCase();
+  const valueA = $(a).find('h4').text().toLowerCase();
+  const valueB = $(b).find('h4').text().toLowerCase();
   return (valueA > valueB) ? 1 : -1;
 }
 
@@ -81,18 +93,31 @@ $('#submit-btn').on('click', (e) => {
   resetInputs();
 });
 
-$('#items-ul').on('click', 'li', (e) => {
-  console.log(e.target);
-  console.log('id', $(e.target).data('id'));
+$('#items-holder').on('click', 'h4', (e) => {
+  $(e.target).siblings('.details').toggle();
 });
 
 $('#asc-btn').on('click', () => {
-  $('li').sort(sortAscending).appendTo('#items-ul');
+  $('.item').sort(sortAscending).appendTo('#items-holder');
 });
 
 $('#desc-btn').on('click', () => {
-  $('li').sort(sortDescending).appendTo('#items-ul');
-})
+  $('.item').sort(sortDescending).appendTo('#items-holder');
+});
+
+$('#items-holder').on('change', '.change-cleanliness', async function () {
+  const id = $(this).parent().siblings('h4').data('id');
+  const newCleanliness = $(this).val();
+  updateCleanliness(newCleanliness);
+
+  const initialPatch = await fetch(`/api/v1/items/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ cleanliness: newCleanliness })
+  });
+});
 
 $(document).ready(async () => {
   const items = await fetchItems();
