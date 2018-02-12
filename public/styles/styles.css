@@ -28,3 +28,20 @@ section {
   top: 30px;
   width: 800px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 18px;
+}
+
+#name-input,
+#reason-input,
+#cleanliness-select,
+#submit-btn {
+  font-size: 18px;
+  margin: 5px 0;
+}
