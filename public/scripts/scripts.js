@@ -13,7 +13,7 @@ const fetchItems = async () => {
 const displayItems = (items) => {
   $('#items-count').text(items.length);
   items.forEach(item => {
-    $('#items-ul').append(`<li>${item.name}</li>`);
+    $('#items-ul').append(`<li data-id=${item.id}>${item.name}</li>`);
   });
 };
 
@@ -27,7 +27,6 @@ const addItem = async (name, reason, cleanliness) => {
   });
 
   const id = await initialPost.json();
-  console.log(id);
   displayItems([{ id, name, reason, cleanliness}]);
 };
 
@@ -47,6 +46,13 @@ $('#submit-btn').on('click', (e) => {
   let cleanliness = $('#cleanliness-select').val();
   addItem(name, reason, cleanliness);
   resetInputs();
+});
+
+$('#items-ul').on('click', 'li', (e) => {
+  console.log(e.target);
+  console.log('id', $(e.target).data('id'));
+  console.log('reason', $(e.target).data('reason'));
+  console.log('cleanliness', $(e.target).data('cleanliness'));
 });
 
 $(document).ready(async () => {
