@@ -15,20 +15,19 @@ const displayCount = (length) => {
 }
 
 const displayCleanliness = (items) => {
-  let cleanliness = items.reduce((cleanliness, item) => {
-    cleanliness[item.cleanliness] += 1;
-    return cleanliness;
-  }, { Sparkling: 0, Dusty: 0, Rancid: 0 });
+  const cleanliness = {
+    Sparkling: 0,
+    Dusty: 0,
+    Rancid: 0
+  }
+
+  $('.change-cleanliness').each((index, clean) => {
+    cleanliness[$(clean).val()] += 1;
+  });
 
   $('#sparkling-span').text(cleanliness.Sparkling);
   $('#dusty-span').text(cleanliness.Dusty);
   $('#rancid-span').text(cleanliness.Rancid);
-}
-
-const updateCleanliness = (cleanliness) => {
-  const spanId = cleanliness.toLowerCase() + '-span';
-  const newText = parseInt($(`#${spanId}`).text()) + 1
-  $(`#${spanId}`).text(newText);
 }
 
 const displayItems = (items) => {
@@ -60,7 +59,7 @@ const addItem = async (name, reason, cleanliness) => {
 
   const id = await initialPost.json();
   displayItems([{ id: id.id, name, reason, cleanliness }]);
-  updateCleanliness(cleanliness);
+  displayCleanliness();
 };
 
 const sortAscending = (a, b) => {
@@ -108,7 +107,7 @@ $('#desc-btn').on('click', () => {
 $('#items-holder').on('change', '.change-cleanliness', async function () {
   const id = $(this).parent().siblings('h4').data('id');
   const newCleanliness = $(this).val();
-  updateCleanliness(newCleanliness);
+  displayCleanliness();
 
   const initialPatch = await fetch(`/api/v1/items/${id}`, {
     method: 'PATCH',
@@ -122,6 +121,6 @@ $('#items-holder').on('change', '.change-cleanliness', async function () {
 $(document).ready(async () => {
   const items = await fetchItems();
   displayCount(items.length);
-  displayCleanliness(items);
   displayItems(items);
+  displayCleanliness();
 });
