@@ -37,7 +37,7 @@ const displayItems = (items) => {
       <div class="item">
         <h4 data-id=${item.id}>${item.name}</h4>
         <div class="details">
-          <p>This is lingering here because ${item.reason}</p>
+          <p>${item.reason}</p>
           <select id="select-${item.id}" class="change-cleanliness">
             <option value="Sparkling">Sparkling</option>
             <option value="Dusty">Dusty</option>

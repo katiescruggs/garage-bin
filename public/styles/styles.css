@@ -26,6 +26,7 @@ button {
   background-color: #00A8E8;
   border: none;
   color: #FFFFFF;
+  cursor: pointer;
   padding: 10px;
 }
 
@@ -43,11 +44,49 @@ button {
 }
 
 #garage-img {
-  cursor: pointer;
   position: absolute;
   height: 350px;
   width: 800px;
   z-index: 1;
+}
+
+#count-title {
+  margin-top: 20px;
+}
+
+#cleanliness-title {
+  font-size: 14px;
+}
+
+#items-holder {
+  display: flex;
+  padding: 10px;
+}
+
+.item {
+  align-items: center;
+  background-color: aliceblue;
+  border: 1px solid #007EA7;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px;
+  padding: 10px;
+}
+
+.details {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.change-cleanliness {
+  display: block;
+  font-size: 14px;
+  margin: 0 auto;
+  width: 85px;
 }
 
 .sort-btn {
@@ -128,5 +167,5 @@ label {
 }
 
 .details {
-  /*display: none;*/
+  display: none;
 }
