@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(app.get('port'), () => {
+const httpServer = app.listen(app.get('port'), () => {
   console.log(`Garage Bin running on ${app.get('port')}`);
 });
 
@@ -61,3 +61,5 @@ app.get('/api/v1/items/:name', (request, response) => {
       return response.status(500).json({ error });
     })
 });
+
+module.exports = httpServer;
