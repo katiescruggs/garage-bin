@@ -105,7 +105,7 @@ $('#desc-btn').on('click', () => {
   $('.item').sort(sortDescending).appendTo('#items-holder');
 });
 
-$('#items-holder').on('change', '.change-cleanliness', function aysnc () {
+$('#items-holder').on('change', '.change-cleanliness', async function () {
   const id = $(this).parent().siblings('h4').data('id');
   const newCleanliness = $(this).val();
 
@@ -114,11 +114,8 @@ $('#items-holder').on('change', '.change-cleanliness', function aysnc () {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ Cleanliness: newCleanliness })
+    body: JSON.stringify({ cleanliness: newCleanliness })
   });
-
-  const successMessage = await initialPatch.json();
-  console.log(successMessage);
 });
 
 $(document).ready(async () => {
