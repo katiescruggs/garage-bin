@@ -12,7 +12,7 @@ const fetchItems = async () => {
 
 const displayCount = (length) => {
   $('#items-count').text(length);
-}
+};
 
 const displayCleanliness = (items) => {
   const cleanliness = {
@@ -28,7 +28,7 @@ const displayCleanliness = (items) => {
   $('#sparkling-span').text(cleanliness.Sparkling);
   $('#dusty-span').text(cleanliness.Dusty);
   $('#rancid-span').text(cleanliness.Rancid);
-}
+};
 
 const displayItems = (items) => {
   items.forEach(item => {
@@ -77,17 +77,15 @@ const patchCleanliness = async (id, newCleanliness) => {
   });
 };
 
-const sortAscending = (a, b) => {
-  const valueA = $(a).find('h4').text().toLowerCase();
-  const valueB = $(b).find('h4').text().toLowerCase();
-  return (valueA > valueB) ? 1 : -1;
-};
-
-const sortDescending = (a, b) => {
-  const valueA = $(a).text().toLowerCase();
-  const valueB = $(b).text().toLowerCase();
-  return (valueA < valueB) ? 1 : -1;
-};
+const sortItems = (id) => {
+  const returnFunction = (a, b) => {
+    const valueA = $(a).find('h4').text().toLowerCase();
+    const valueB = $(b).find('h4').text().toLowerCase();
+    const conditional = id === 'asc-btn' ? (valueA > valueB) : (valueA < valueB);
+    return conditional ? 1 : -1;
+  };
+  return returnFunction;
+}
 
 $('#garage-btn').on('click', () => {
   $('#garage-img').slideToggle(2500);
@@ -111,12 +109,9 @@ $('#items-holder').on('click', 'h4', (e) => {
   $(e.target).siblings('.details').toggle();
 });
 
-$('#asc-btn').on('click', () => {
-  $('.item').sort(sortAscending).appendTo('#items-holder');
-});
-
-$('#desc-btn').on('click', () => {
-  $('.item').sort(sortDescending).appendTo('#items-holder');
+$('#asc-btn, #desc-btn').on('click', function () {
+  const id = $(this).attr('id');
+  $('.item').sort(sortItems(id)).appendTo('#items-holder');
 });
 
 $('#items-holder').on('change', '.change-cleanliness', async function () {
