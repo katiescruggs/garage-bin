@@ -4,8 +4,13 @@ const resetInputs = () => {
   $('#cleanliness-select').val('Sparkling');
 }
 
-$('#garage-img').on('click', () => {
-  $('#garage-img').slideUp(5000);
+$('#garage-btn').on('click', () => {
+  $('#garage-img').slideToggle(5000);
+
+  let open = $('#garage-btn').text() === 'Open Your Garage';
+  let text = open ? 'Close Your Garage' : 'Open Your Garage';
+  
+  $('#garage-btn').text(text);
 });
 
 $('#submit-btn').on('click', (e) => {

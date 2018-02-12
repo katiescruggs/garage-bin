@@ -25,7 +25,6 @@ section {
 #garage-img {
   cursor: pointer;
   position: absolute;
-  top: 30px;
   width: 800px;
 }
 
@@ -41,7 +40,8 @@ label {
 #name-input,
 #reason-input,
 #cleanliness-select,
-#submit-btn {
+#submit-btn,
+#garage-btn {
   font-size: 18px;
   margin: 5px 0;
 }
