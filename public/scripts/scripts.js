@@ -59,7 +59,7 @@ const addItem = async (name, reason, cleanliness) => {
   });
 
   const id = await initialPost.json();
-  displayItems([{ id, name, reason, cleanliness }]);
+  displayItems([{ id: id.id, name, reason, cleanliness }]);
   updateCleanliness(cleanliness);
 };
 
