@@ -93,9 +93,8 @@ $('#submit-btn').on('click', (e) => {
   resetInputs();
 });
 
-$('#items-holder').on('click', 'li', (e) => {
-  console.log(e.target);
-  console.log('id', $(e.target).data('id'));
+$('#items-holder').on('click', 'h4', (e) => {
+  $(e.target).siblings('.details').toggle();
 });
 
 $('#asc-btn').on('click', () => {
