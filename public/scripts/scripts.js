@@ -37,7 +37,7 @@ const displayItems = (items) => {
       <div class="item">
         <h4 data-id=${item.id}>${item.name}</h4>
         <div class="details">
-          <p>This is lingering here because ${item.reason}</p>
+          <p>${item.reason}</p>
           <select id="select-${item.id}" class="change-cleanliness">
             <option value="Sparkling">Sparkling</option>
             <option value="Dusty">Dusty</option>
@@ -76,7 +76,7 @@ const sortDescending = (a, b) => {
 }
 
 $('#garage-btn').on('click', () => {
-  $('#garage-img').slideToggle(5000);
+  $('#garage-img').slideToggle(2500);
 
   let open = $('#garage-btn').text() === 'Open Your Garage';
   let text = open ? 'Close Your Garage' : 'Open Your Garage';
