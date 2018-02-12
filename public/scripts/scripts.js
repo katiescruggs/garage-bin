@@ -25,6 +25,12 @@ const displayCleanliness = (items) => {
   $('#rancid-span').text(cleanliness.Rancid);
 }
 
+const updateCleanliness = (cleanliness) => {
+  const spanId = cleanliness.toLowerCase() + '-span';
+  const newText = parseInt($(`#${spanId}`).text()) + 1
+  $(`#${spanId}`).text(newText);
+}
+
 const displayItems = (items) => {
   items.forEach(item => {
     $('#items-ul').append(`<li data-id=${item.id}>${item.name}</li>`);
@@ -42,6 +48,7 @@ const addItem = async (name, reason, cleanliness) => {
 
   const id = await initialPost.json();
   displayItems([{ id, name, reason, cleanliness }]);
+  updateCleanliness(cleanliness);
 };
 
 $('#garage-btn').on('click', () => {
