@@ -46,15 +46,15 @@ app.post('/api/v1/items', (request, response) => {
     })
 });
 
-app.get('/api/v1/items/:name', (request, response) => {
-  const { name } = request.params;
+app.get('/api/v1/items/:id', (request, response) => {
+  const { id } = request.params;
 
-  database('items').where('name', name).select()
+  database('items').where('id', id).select()
     .then(item => {
       if (item.length) {
         return response.status(200).json(item[0]);
       } else {
-        return response.status(404).json({ error: `No item with name ${name} found.`})
+        return response.status(404).json({ error: `No item with id ${id} found.`})
       }
     })
     .catch(error => {
