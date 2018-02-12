@@ -10,16 +10,22 @@
     </header>
     <main>
       <section class="garage-section">
-        <h2>You have <span id="items-count">0</span> items in your garage:</h2>
-        <h3>
-          <span id="sparkling-span">0</span> Sparkling, 
+        <h2 id="count-title"><span id="items-count">0</span> items</h2>
+        <h3 id="cleanliness-title">
+          (<span id="sparkling-span">0</span> Sparkling, 
           <span id="dusty-span">0</span> Dusty, and 
-          <span id="rancid-span">0</span> Rancid
+          <span id="rancid-span">0</span> Rancid)
         </h3>
         <img id="garage-img" src="assets/garage-door.jpg" alt="Garage door">
         <div id="items-holder"></div>
-        <button id="asc-btn">Sort Ascending</button>
-        <button id="desc-btn">Sort Descending</button>
+        <button id="asc-btn" class="sort-btn">
+          SORT
+          <img class="arrow-img" src="assets/arrow-up.png" alt="Arrow pointing up">
+        </button>
+        <button id="desc-btn" class="sort-btn">
+          SORT
+          <img class="arrow-img" src="assets/arrow-down.png" alt="Arrow pointing down">
+        </button>
       </section>
       
       <section class="garage-btn-section">
@@ -29,7 +35,7 @@
       
       <section class="add-item">
         <form action="submit">
-          <h2 class="add-item-title">Add to your garage</h2>
+          <h2 class="add-item-title">Add to Your Garage</h2>
           <div class="form-div">
             <label for="name-input">Name: </label>
             <input id="name-input" type="text" placeholder="What is it?">

@@ -76,7 +76,7 @@ const sortDescending = (a, b) => {
 }
 
 $('#garage-btn').on('click', () => {
-  $('#garage-img').slideToggle(5000);
+  $('#garage-img').slideToggle(2500);
 
   let open = $('#garage-btn').text() === 'Open Your Garage';
   let text = open ? 'Close Your Garage' : 'Open Your Garage';
