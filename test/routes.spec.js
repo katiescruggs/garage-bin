@@ -48,7 +48,6 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.results.should.be.a('array');
-          response.body.results.length.should.equal(2);
           response.body.results[0].should.have.property('id');
           response.body.results[0].should.have.property('name');
           response.body.results[0].should.have.property('reason');
@@ -60,10 +59,111 @@ describe('API Routes', () => {
           throw error;
         })
     });
+
+    it('should return 404 if the URL is mistyped', () => {
+      return chai.request(server)
+        .get('/api/v1/item')
+        .then(response => {
+          throw response;
+        })
+        .catch(error => {
+          error.should.have.status(404);
+        })
+    });
   });
 
   describe('POST /api/v1/items', () => {
+    it('should return the id of the new item', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          reason: 'Why Not?',
+          cleanliness: 'Rancid'
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+        })
+        .catch(error => {
+          throw error;
+        })
+    });
 
+    it('should return error message if name is missing from request body', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          reason: 'Why Not?',
+          cleanliness: 'Rancid'
+        })
+        .then(response => {
+          throw response
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.should.be.json;
+          error.response.body.should.be.a('object');
+          error.response.body.should.have.property('error');
+          error.response.body.error.should.equal('You are missing the required parameter name');
+        })
+    });
+
+    it('should return error message if reason is missing from request body', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          cleanliness: 'Rancid'
+        })
+        .then(response => {
+          throw response
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.should.be.json;
+          error.response.body.should.be.a('object');
+          error.response.body.should.have.property('error');
+          error.response.body.error.should.equal('You are missing the required parameter reason');
+        })
+    });
+
+    it('should return error message if cleanliness is missing from request body', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          reason: 'Why Not?'
+        })
+        .then(response => {
+          throw response
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.should.be.json;
+          error.response.body.should.be.a('object');
+          error.response.body.should.have.property('error');
+          error.response.body.error.should.equal('You are missing the required parameter cleanliness');
+        })
+    });
+
+    it('should return 404 if the URL is mistyped', () => {
+      return chai.request(server)
+        .post('/api/v1/item')
+        .send({
+          name: 'New Item',
+          reason: 'Why Not?',
+          cleanliness: 'Sparkling'
+        })
+        .then(response => {
+          throw response;
+        })
+        .catch(error => {
+          error.should.have.status(404);
+        })
+    });
   });
 
   describe('GET /api/v1/items/:name', () => {
