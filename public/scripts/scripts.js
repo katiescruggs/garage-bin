@@ -38,7 +38,7 @@ const displayItems = (items) => {
         <h4 data-id=${item.id}>${item.name}</h4>
         <div class="details">
           <p>This is lingering here because ${item.reason}</p>
-          <select id="select-${item.id}">
+          <select id="select-${item.id}" class="change-cleanliness">
             <option value="Sparkling">Sparkling</option>
             <option value="Dusty">Dusty</option>
             <option value="Rancid">Rancid</option>
@@ -103,7 +103,23 @@ $('#asc-btn').on('click', () => {
 
 $('#desc-btn').on('click', () => {
   $('.item').sort(sortDescending).appendTo('#items-holder');
-})
+});
+
+$('#items-holder').on('change', '.change-cleanliness', function aysnc () {
+  const id = $(this).parent().siblings('h4').data('id');
+  const newCleanliness = $(this).val();
+
+  const initialPatch = await fetch(`/api/v1/items/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ Cleanliness: newCleanliness })
+  });
+
+  const successMessage = await initialPatch.json();
+  console.log(successMessage);
+});
 
 $(document).ready(async () => {
   const items = await fetchItems();
