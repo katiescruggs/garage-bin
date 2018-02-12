@@ -23,3 +23,19 @@ app.get('/api/v1/items', (request, response) => {
       return response.status(500).json({ error });
     })
 });
+
+app.get('/api/v1/items/:name', (request, response) => {
+  const { name } = request.params;
+
+  database('items').where('name', name).select()
+    .then(item => {
+      if (item.length) {
+        return response.status(200).json(item[0]);
+      } else {
+        return response.status(404).json({ error: `No item with name ${name} found.`})
+      }
+    })
+    .catch(error => {
+      return response.status(500).json({ error });
+    })
+});
