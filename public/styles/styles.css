@@ -29,11 +29,15 @@ button {
   padding: 10px;
 }
 
+.garage-btn-section {
+  margin-top: -25px;
+  margin-bottom: 50px;
+}
+
 .garage-section {
-  background-color: #B6B9C0;
+  border: 5px solid #003459;
   height: 350px;
   overflow: scroll;
-  padding: 10px;
   position: relative;
   width: 800px;
 }
