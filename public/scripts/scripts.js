@@ -10,8 +10,22 @@ const fetchItems = async () => {
   return itemResults.results;
 };
 
+const displayCount = (length) => {
+  $('#items-count').text(length);
+}
+
+const displayCleanliness = (items) => {
+  let cleanliness = items.reduce((cleanliness, item) => {
+    cleanliness[item.cleanliness] += 1;
+    return cleanliness;
+  }, { Sparkling: 0, Dusty: 0, Rancid: 0 });
+
+  $('#sparkling-span').text(cleanliness.Sparkling);
+  $('#dusty-span').text(cleanliness.Dusty);
+  $('#rancid-span').text(cleanliness.Rancid);
+}
+
 const displayItems = (items) => {
-  $('#items-count').text(items.length);
   items.forEach(item => {
     $('#items-ul').append(`<li data-id=${item.id}>${item.name}</li>`);
   });
@@ -27,7 +41,7 @@ const addItem = async (name, reason, cleanliness) => {
   });
 
   const id = await initialPost.json();
-  displayItems([{ id, name, reason, cleanliness}]);
+  displayItems([{ id, name, reason, cleanliness }]);
 };
 
 $('#garage-btn').on('click', () => {
@@ -51,11 +65,11 @@ $('#submit-btn').on('click', (e) => {
 $('#items-ul').on('click', 'li', (e) => {
   console.log(e.target);
   console.log('id', $(e.target).data('id'));
-  console.log('reason', $(e.target).data('reason'));
-  console.log('cleanliness', $(e.target).data('cleanliness'));
 });
 
 $(document).ready(async () => {
   const items = await fetchItems();
+  displayCount(items.length);
+  displayCleanliness(items);
   displayItems(items);
 });
