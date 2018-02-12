@@ -51,6 +51,18 @@ const addItem = async (name, reason, cleanliness) => {
   updateCleanliness(cleanliness);
 };
 
+const sortAscending = (a, b) => {
+  const valueA = $(a).text().toLowerCase();
+  const valueB = $(b).text().toLowerCase();
+  return (valueA > valueB) ? 1 : -1;
+}
+
+const sortDescending = (a, b) => {
+  const valueA = $(a).text().toLowerCase();
+  const valueB = $(b).text().toLowerCase();
+  return (valueA < valueB) ? 1 : -1;
+}
+
 $('#garage-btn').on('click', () => {
   $('#garage-img').slideToggle(5000);
 
@@ -73,6 +85,14 @@ $('#items-ul').on('click', 'li', (e) => {
   console.log(e.target);
   console.log('id', $(e.target).data('id'));
 });
+
+$('#asc-btn').on('click', () => {
+  $('li').sort(sortAscending).appendTo('#items-ul');
+});
+
+$('#desc-btn').on('click', () => {
+  $('li').sort(sortDescending).appendTo('#items-ul');
+})
 
 $(document).ready(async () => {
   const items = await fetchItems();
