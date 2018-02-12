@@ -171,3 +171,23 @@ label {
 .details {
   display: none;
 }
+
+@media screen and (max-width: 800px) {
+  #garage-img,
+  .garage-section {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #garage-img,
+  .garage-section {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  form {
+    width: 100%;
+  }
+}
