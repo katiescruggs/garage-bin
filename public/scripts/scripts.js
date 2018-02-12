@@ -23,11 +23,12 @@ const addItem = async (name, reason, cleanliness) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ name, reason, cleanliness });
+    body: JSON.stringify({ name, reason, cleanliness })
   });
 
   const id = await initialPost.json();
   console.log(id);
+  displayItems([{ id, name, reason, cleanliness}]);
 };
 
 $('#garage-btn').on('click', () => {
@@ -41,6 +42,10 @@ $('#garage-btn').on('click', () => {
 
 $('#submit-btn').on('click', (e) => {
   e.preventDefault();
+  let name = $('#name-input').val();
+  let reason = $('#reason-input').val();
+  let cleanliness = $('#cleanliness-select').val();
+  addItem(name, reason, cleanliness);
   resetInputs();
 });
 
