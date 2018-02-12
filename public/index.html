@@ -6,47 +6,50 @@
   </head>
   <body>
     <header>
-      <h1>Garage Bin</h1>
+      <h1>Welcome to Your Garage</h1>
     </header>
+    <main>
+      <section class="garage-section">
+        <h2>You have <span id="items-count">0</span> items in your garage:</h2>
+        <h3>
+          <span id="sparkling-span">0</span> Sparkling, 
+          <span id="dusty-span">0</span> Dusty, and 
+          <span id="rancid-span">0</span> Rancid
+        </h3>
+        <img id="garage-img" src="assets/garage-door.jpg" alt="Garage door">
+        <div id="items-holder"></div>
+        <button id="asc-btn">Sort Ascending</button>
+        <button id="desc-btn">Sort Descending</button>
+      </section>
+      
+      <section class="button-section">
+        <button id="garage-btn">Open Your Garage</button>
+      </section>
 
-    <section class="garage-section">
-      <h2>You have <span id="items-count">0</span> items in your garage:</h2>
-      <h3>
-        <span id="sparkling-span">0</span> Sparkling, 
-        <span id="dusty-span">0</span> Dusty, and 
-        <span id="rancid-span">0</span> Rancid
-      </h3>
-      <img id="garage-img" src="assets/garage-door.jpg" alt="Garage door">
-      <div id="items-holder"></div>
-      <button id="asc-btn">Sort Ascending</button>
-      <button id="desc-btn">Sort Descending</button>
-    </section>
-
-    <button id="garage-btn">Open Your Garage</button>
-
-    
-    <section class="add-item">
-      <h2>Add an item to your garage:</h2>
-      <form action="">
-        <div>
-          <label for="name-input">Name: </label>
-          <input id="name-input" type="text" placeholder="What is it?">
-        </div>
-        <div>
-          <label for="reason-input">Reason: </label>
-          <input id="reason-input" type="text" placeholder="Why is it here?">
-        </div>
-        <div>
-          <label for="cleanliness-select">Cleanliness: </label>
-          <select name="cleanliness" id="cleanliness-select">
-            <option value="Sparkling">Sparkling</option>
-            <option value="Dusty">Dusty</option>
-            <option value="Rancid">Rancid</option>
-          </select>
-        </div>
-        <button id="submit-btn">Add Item</button>
-      </form>
-    </section>
+      
+      <section class="add-item">
+        <form action="submit">
+          <h2 class="add-item-title">Add to your garage</h2>
+          <div class="form-div">
+            <label for="name-input">Name: </label>
+            <input id="name-input" type="text" placeholder="What is it?">
+          </div>
+          <div class="form-div">
+            <label for="reason-input">Reason: </label>
+            <input id="reason-input" type="text" placeholder="Why is it here?">
+          </div>
+          <div class="form-div">
+            <label for="cleanliness-select">Cleanliness: </label>
+            <select name="cleanliness" id="cleanliness-select">
+              <option value="Sparkling">Sparkling</option>
+              <option value="Dusty">Dusty</option>
+              <option value="Rancid">Rancid</option>
+            </select>
+          </div>
+          <button id="submit-btn">Add Item</button>
+        </form>
+      </section>
+    </main>
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/scripts.js"></script>
   </body>
