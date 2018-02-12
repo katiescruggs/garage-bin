@@ -108,6 +108,7 @@ $('#desc-btn').on('click', () => {
 $('#items-holder').on('change', '.change-cleanliness', async function () {
   const id = $(this).parent().siblings('h4').data('id');
   const newCleanliness = $(this).val();
+  updateCleanliness(newCleanliness);
 
   const initialPatch = await fetch(`/api/v1/items/${id}`, {
     method: 'PATCH',
