@@ -166,20 +166,35 @@ describe('API Routes', () => {
     });
   });
 
-  describe('GET /api/v1/items/:name', () => {
-    it('should return one item with name that matches request param', () => {
+  describe('GET /api/v1/items/:id', () => {
+    it('should return one item with id that matches request param', () => {
       return chai.request(server)
-        .get('/api/v1/items/dresser')
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          reason: 'Why Not?',
+          cleanliness: 'Sparkling'
+        })
         .then(response => {
-          response.should.have.status(200);
-          response.should.be.json;
-          response.body.should.be.a('object');
-          response.body.should.have.property('id');
-          response.body.should.have.property('name');
-          response.body.should.have.property('reason');
-          response.body.should.have.property('cleanliness');
-          response.body.should.have.property('created_at');
-          response.body.should.have.property('updated_at');
+          return response.body.id;
+        })
+        .then(id => {
+          return chai.request(server)
+            .get(`/api/v1/items/${id}`)
+            .then(response => {
+              response.should.have.status(200);
+              response.should.be.json;
+              response.body.should.be.a('object');
+              response.body.should.have.property('id');
+              response.body.should.have.property('name');
+              response.body.should.have.property('reason');
+              response.body.should.have.property('cleanliness');
+              response.body.should.have.property('created_at');
+              response.body.should.have.property('updated_at');
+            })
+            .catch(error => {
+              throw error;
+            })
         })
         .catch(error => {
           throw error;
@@ -188,7 +203,7 @@ describe('API Routes', () => {
 
     it('should provide error message if item does not exist', () => {
       return chai.request(server)
-        .get('/api/v1/items/doesnotexist')
+        .get('/api/v1/items/100000000')
         .then(response => {
           throw response;
         })
@@ -197,7 +212,7 @@ describe('API Routes', () => {
           error.response.should.be.json;
           error.response.body.should.be.a('object');
           error.response.body.should.have.property('error');
-          error.response.body.error.should.equal('No item with name doesnotexist found.');
+          error.response.body.error.should.equal('No item with id 100000000 found.');
         })
     });
 
@@ -209,6 +224,90 @@ describe('API Routes', () => {
         })
         .catch(error => {
           error.should.have.status(404);
+        })
+    });
+  });
+
+  describe('PATCH /api/v1/items/:id', () => {
+    it('should return a success message if the patch went through (cleanliness)', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          reason: 'To be patched',
+          cleanliness: 'Sparkling'
+        })
+        .then(response => {
+          return response.body.id
+        })
+        .then(id => {
+          return chai.request(server)
+            .patch(`/api/v1/items/${id}`)
+            .send({
+              cleanliness: 'Rancid'
+            })
+            .then(response => {
+              response.should.have.status(201);
+              response.body.should.be.a('object');
+              response.body.success.should.equal(`Updated item ${id}'s cleanliness`);
+            })
+            .catch(error => {
+              throw error;
+            })
+        })
+        .catch(error => {
+          throw error;
+        })
+    });
+
+    it('should return a success message if the patch went through (name)', () => {
+      return chai.request(server)
+        .post('/api/v1/items')
+        .send({
+          name: 'New Item',
+          reason: 'To be patched',
+          cleanliness: 'Sparkling'
+        })
+        .then(response => {
+          return response.body.id
+        })
+        .then(id => {
+          return chai.request(server)
+            .patch(`/api/v1/items/${id}`)
+            .send({
+              name: 'Old Item'
+            })
+            .then(response => {
+              response.should.have.status(201);
+              response.should.be.json;
+              response.body.should.be.a('object');
+              response.body.success.should.equal(`Updated item ${id}'s name`);
+            })
+            .catch(error => {
+              throw error;
+            })
+        })
+        .catch(error => {
+          throw error;
+        })
+    });
+
+    it('should return an error message if item does not exist', () => {
+      return chai.request(server)
+        .patch('/api/v1/items/10000000')
+        .send({
+          name: 'New Item',
+          reason: 'To be patched',
+          cleanliness: 'Sparkling'
+        })
+        .then(response => {
+          throw response;
+        })
+        .catch(error => {
+          error.should.have.status(404);
+          error.response.should.be.json;
+          error.response.body.should.be.a('object');
+          error.response.body.error.should.equal('No item with id 10000000 found.');
         })
     });
   });
