@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Garage Bin</title>
+  </head>
+  <body>
+    <header>
+      <h1>Garage Bin</h1>
+    </header>
+
+    <section class="garage-section">
+      <h2>Click to open your garage:</h2>
+      <img id="garage-img" src="assets/garage-door.jpg" alt="Garage door">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec lacinia orci, nec tristique purus. Aliquam ex est, interdum finibus neque quis, elementum aliquam libero. Nam quis consequat diam. Sed id pretium neque. Aenean eget luctus lacus, in dapibus nisl. Donec scelerisque tortor sit amet risus viverra, eget lobortis turpis lobortis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam auctor ante odio, id egestas mauris vulputate sed. Maecenas faucibus dui ac velit varius, convallis aliquet lacus pretium. Quisque ut massa nunc. Curabitur massa lectus, tempus sit amet eleifend at, aliquam ut nibh. Proin tristique lobortis elit nec lacinia. Donec quis mollis est, in eleifend dolor. Sed feugiat auctor feugiat. Mauris ac enim dignissim, auctor dui eget, tincidunt dui. Sed a odio porta, interdum mauris ut, ornare quam.</p>
+    </section>
+    
+    <section class="add-item">
+      <h2>Add an item to your garage:</h2>
+      <form action="">
+        <div>
+          <label for="name-input">Name: </label>
+          <input id="name-input" type="text" placeholder="What is it?">
+        </div>
+        <div>
+          <label for="reason-input">Reason: </label>
+          <input id="reason-input" type="text" placeholder="Why is it here?">
+        </div>
+        <div>
+          <label for="cleanliness-select">Cleanliness: </label>
+          <select name="cleanliness" id="cleanliness-select">
+            <option value="Sparkling">Sparkling</option>
+            <option value="Dusty">Dusty</option>
+            <option value="Rancid">Rancid</option>
+          </select>
+        </div>
+        <button id="submit-btn">Add Item</button>
+      </form>
+    </section>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/scripts.js"></script>
+  </body>
+</html>
