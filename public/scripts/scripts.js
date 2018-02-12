@@ -19,7 +19,7 @@ const displayCleanliness = (items) => {
     Sparkling: 0,
     Dusty: 0,
     Rancid: 0
-  }
+  };
 
   $('.change-cleanliness').each((index, clean) => {
     cleanliness[$(clean).val()] += 1;
@@ -48,47 +48,62 @@ const displayItems = (items) => {
   });
 };
 
-const addItem = async (name, reason, cleanliness) => {
+const addItem = async (itemPayload) => {
+  const id = await postItem(itemPayload);
+  displayItems([{ id: id, name, reason, cleanliness }]);
+  displayCleanliness();
+};
+
+const postItem = async (itemPayload) => {
   const initialPost = await fetch('/api/v1/items', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ name, reason, cleanliness })
+    body: JSON.stringify(itemPayload)
   });
 
   const id = await initialPost.json();
-  displayItems([{ id: id.id, name, reason, cleanliness }]);
-  displayCleanliness();
+  return id.id;
+};
+
+const patchCleanliness = async (id, newCleanliness) => {
+  const initialPatch = await fetch(`/api/v1/items/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ cleanliness: newCleanliness })
+  });
 };
 
 const sortAscending = (a, b) => {
   const valueA = $(a).find('h4').text().toLowerCase();
   const valueB = $(b).find('h4').text().toLowerCase();
   return (valueA > valueB) ? 1 : -1;
-}
+};
 
 const sortDescending = (a, b) => {
   const valueA = $(a).text().toLowerCase();
   const valueB = $(b).text().toLowerCase();
   return (valueA < valueB) ? 1 : -1;
-}
+};
 
 $('#garage-btn').on('click', () => {
   $('#garage-img').slideToggle(2500);
 
-  let open = $('#garage-btn').text() === 'Open Your Garage';
-  let text = open ? 'Close Your Garage' : 'Open Your Garage';
+  const open = $('#garage-btn').text() === 'Open Your Garage';
+  const text = open ? 'Close Your Garage' : 'Open Your Garage';
 
   $('#garage-btn').text(text);
 });
 
 $('#submit-btn').on('click', (e) => {
   e.preventDefault();
-  let name = $('#name-input').val();
-  let reason = $('#reason-input').val();
-  let cleanliness = $('#cleanliness-select').val();
-  addItem(name, reason, cleanliness);
+  const name = $('#name-input').val();
+  const reason = $('#reason-input').val();
+  const cleanliness = $('#cleanliness-select').val();
+  addItem({ name, reason, cleanliness });
   resetInputs();
 });
 
@@ -108,14 +123,7 @@ $('#items-holder').on('change', '.change-cleanliness', async function () {
   const id = $(this).parent().siblings('h4').data('id');
   const newCleanliness = $(this).val();
   displayCleanliness();
-
-  const initialPatch = await fetch(`/api/v1/items/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ cleanliness: newCleanliness })
-  });
+  await patchCleanliness(id, newCleanliness);
 });
 
 $(document).ready(async () => {
