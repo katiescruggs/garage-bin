@@ -61,6 +61,7 @@ button {
 #items-holder {
   margin: 10px;
   overflow: scroll;
+  padding: 0 7.5px;
 }
 
 .item {
