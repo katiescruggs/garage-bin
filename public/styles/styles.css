@@ -54,15 +54,15 @@ button {
   margin-top: 20px;
 }
 
-#cleanliness-title {
+#cleanliness-title,
+.change-cleanliness {
   font-size: 14px;
 }
 
 #items-holder {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
+  margin: 10px;
+  overflow: scroll;
+  padding: 0 7.5px;
 }
 
 .item {
@@ -75,6 +75,7 @@ button {
   justify-content: center;
   margin: 5px;
   padding: 10px;
+  width: 400px;
 }
 
 .details {
@@ -84,21 +85,14 @@ button {
   justify-content: center;
 }
 
-.change-cleanliness {
-  display: block;
-  font-size: 14px;
-  margin: 0 auto;
-  width: 85px;
-}
-
 .sort-btn {
   align-items: center;
   background-color: #007EA7;
+  bottom: 20px;
   font-size: 14px;
   display: flex;
   justify-content: space-around;
   position: absolute;
-  bottom: 20px;
   width: 85px;
   z-index: 0;
 }
@@ -130,8 +124,8 @@ form {
 }
 
 .form-div {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -168,6 +162,47 @@ label {
   margin: 5px 0;
 }
 
-.details {
+.hidden {
   display: none;
+}
+
+@media screen and (max-width: 800px) {
+  #garage-img,
+  .garage-section {
+    width: 600px;
+  }
+
+  .item {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #garage-img,
+  .garage-section {
+    width: 100%;
+  }
+  .sort-btn {
+    bottom: 7.5px;
+    width: auto;
+  }
+
+  #asc-btn {
+    left: 10px;
+  }
+
+  #desc-btn {
+    right: 10px;
+  }
+
+  #items-holder {
+    margin-bottom: 50px;
+  }
+
+}
+
+@media screen and (max-width: 350px) {
+  form {
+    width: 100%;
+  }
 }
