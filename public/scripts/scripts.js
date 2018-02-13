@@ -50,7 +50,7 @@ const displayItems = (items) => {
 
 const addItem = async (itemPayload) => {
   const id = await postItem(itemPayload);
-  displayItems([{ id: id, name, reason, cleanliness }]);
+  displayItems([itemPayload]);
   displayCleanliness();
 };
 
@@ -105,8 +105,10 @@ $('#submit-btn').on('click', (e) => {
   resetInputs();
 });
 
-$('#items-holder').on('click', 'h4', (e) => {
-  $(e.target).siblings('.details').toggleClass('hidden');
+$('#items-holder').on('click', '.item', function (e) {
+  if (!$(e.target).hasClass('change-cleanliness')) {
+    $(this).find('.details').toggleClass('hidden');
+  }
 });
 
 $('#asc-btn, #desc-btn').on('click', function () {
