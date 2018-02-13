@@ -54,7 +54,8 @@ button {
   margin-top: 20px;
 }
 
-#cleanliness-title {
+#cleanliness-title,
+.change-cleanliness {
   font-size: 14px;
 }
 
@@ -84,18 +85,14 @@ button {
   justify-content: center;
 }
 
-.change-cleanliness {
-  font-size: 14px;
-}
-
 .sort-btn {
   align-items: center;
   background-color: #007EA7;
+  bottom: 20px;
   font-size: 14px;
   display: flex;
   justify-content: space-around;
   position: absolute;
-  bottom: 20px;
   width: 85px;
   z-index: 0;
 }
@@ -127,8 +124,8 @@ form {
 }
 
 .form-div {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
