@@ -38,15 +38,14 @@ button {
 .garage-section {
   border: 5px solid #003459;
   height: 350px;
-  overflow: scroll;
   position: relative;
   width: 800px;
 }
 
 #garage-img {
   position: absolute;
-  height: 350px;
-  width: 800px;
+  height: 340px;
+  width: 790px;
   z-index: 1;
 }
 
@@ -61,7 +60,7 @@ button {
 
 #items-holder {
   margin: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 0 7.5px;
 }
 
@@ -167,7 +166,10 @@ label {
 }
 
 @media screen and (max-width: 800px) {
-  #garage-img,
+  #garage-img {
+    width: 590px;
+  }
+
   .garage-section {
     width: 600px;
   }
