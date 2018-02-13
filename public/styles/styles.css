@@ -59,10 +59,8 @@ button {
 }
 
 #items-holder {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
+  margin: 10px;
+  overflow: scroll;
 }
 
 .item {
@@ -75,6 +73,7 @@ button {
   justify-content: center;
   margin: 5px;
   padding: 10px;
+  width: 400px;
 }
 
 .details {
@@ -85,10 +84,7 @@ button {
 }
 
 .change-cleanliness {
-  display: block;
   font-size: 14px;
-  margin: 0 auto;
-  width: 85px;
 }
 
 .sort-btn {
@@ -168,7 +164,7 @@ label {
   margin: 5px 0;
 }
 
-.details {
+.hidden {
   display: none;
 }
 
@@ -177,6 +173,10 @@ label {
   .garage-section {
     width: 600px;
   }
+
+  .item {
+    width: 300px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -184,6 +184,23 @@ label {
   .garage-section {
     width: 100%;
   }
+  .sort-btn {
+    bottom: 7.5px;
+    width: auto;
+  }
+
+  #asc-btn {
+    left: 10px;
+  }
+
+  #desc-btn {
+    right: 10px;
+  }
+
+  #items-holder {
+    margin-bottom: 50px;
+  }
+
 }
 
 @media screen and (max-width: 350px) {

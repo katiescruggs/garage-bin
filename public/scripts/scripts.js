@@ -35,7 +35,7 @@ const displayItems = (items) => {
     $('#items-holder').append(`
       <div class="item">
         <h4 data-id=${item.id}>${item.name}</h4>
-        <div class="details">
+        <div class="details hidden">
           <p>${item.reason}</p>
           <select id="select-${item.id}" class="change-cleanliness">
             <option value="Sparkling">Sparkling</option>
@@ -106,7 +106,7 @@ $('#submit-btn').on('click', (e) => {
 });
 
 $('#items-holder').on('click', 'h4', (e) => {
-  $(e.target).siblings('.details').toggle();
+  $(e.target).siblings('.details').toggleClass('hidden');
 });
 
 $('#asc-btn, #desc-btn').on('click', function () {
