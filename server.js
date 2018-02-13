@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const httpServer = app.listen(app.get('port'), () => {
+  //eslint-disable-next-line no-console
   console.log(`Garage Bin running on ${app.get('port')}`);
 });
 
@@ -25,7 +26,7 @@ app.get('/api/v1/items', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.post('/api/v1/items', (request, response) => {
@@ -43,7 +44,7 @@ app.post('/api/v1/items', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.get('/api/v1/items/:id', (request, response) => {
@@ -54,12 +55,12 @@ app.get('/api/v1/items/:id', (request, response) => {
       if (item.length) {
         return response.status(200).json(item[0]);
       } else {
-        return response.status(404).json({ error: `No item with id ${id} found.`})
+        return response.status(404).json({ error: `No item with id ${id} found.`});
       }
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.patch('/api/v1/items/:id', (request, response) => {
@@ -68,15 +69,16 @@ app.patch('/api/v1/items/:id', (request, response) => {
   database('items').where('id', id).update(request.body)
     .then(item => {
       if (item) {
-        return response.status(201).json({ success: `Updated item ${id}'s ${Object.keys(request.body)}`});
-      }
-      else {
+        return response.status(201).json({ 
+          success: `Updated item ${id}'s ${Object.keys(request.body)}`
+        });
+      } else {
         return response.status(404).json({ error: `No item with id ${id} found.`});
       }
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 module.exports = httpServer;

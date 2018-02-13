@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "eslint": "./node_modules/eslint/bin/eslint.js *.js ./test/*.js ./db/*/*.js  ./db/*/*/*.js",
     "test": "mocha --exit"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0"
+    "chai-http": "^3.0.0",
+    "eslint": "^4.17.0"
   }
 }
