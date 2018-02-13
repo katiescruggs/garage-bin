@@ -10,7 +10,8 @@ const fetchItems = async () => {
   return itemResults.results;
 };
 
-const displayCount = (length) => {
+const displayCount = () => {
+  const length = $('.item').length;
   $('#items-count').text(length);
 };
 
@@ -51,6 +52,7 @@ const displayItems = (items) => {
 const addItem = async (itemPayload) => {
   const id = await postItem(itemPayload);
   displayItems([itemPayload]);
+  displayCount();
   displayCleanliness();
 };
 
@@ -125,7 +127,7 @@ $('#items-holder').on('change', '.change-cleanliness', async function () {
 
 $(document).ready(async () => {
   const items = await fetchItems();
-  displayCount(items.length);
   displayItems(items);
+  displayCount();
   displayCleanliness();
 });
