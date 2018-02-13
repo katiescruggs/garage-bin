@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
-const should = chai.should('should');
+const should = chai.should('should'); //eslint-disable-line no-unused-vars
 const chaiHttp = require('chai-http');
 const server = require('../server');
 
@@ -19,7 +19,7 @@ describe('Client Routes', () => {
       })
       .catch(error => {
         throw error;
-      })
+      });
   });
 
   it('should return 404 for a route that does not exist', () => {
@@ -30,8 +30,8 @@ describe('Client Routes', () => {
       })
       .catch(error => {
         error.should.have.status(404);
-      })
-  })
+      });
+  });
 });
 
 describe('API Routes', () => {
@@ -57,7 +57,7 @@ describe('API Routes', () => {
         })
         .catch(error => {
           throw error;
-        })
+        });
     });
 
     it('should return 404 if the URL is mistyped', () => {
@@ -68,7 +68,7 @@ describe('API Routes', () => {
         })
         .catch(error => {
           error.should.have.status(404);
-        })
+        });
     });
   });
 
@@ -89,7 +89,7 @@ describe('API Routes', () => {
         })
         .catch(error => {
           throw error;
-        })
+        });
     });
 
     it('should return error message if name is missing from request body', () => {
@@ -100,7 +100,7 @@ describe('API Routes', () => {
           cleanliness: 'Rancid'
         })
         .then(response => {
-          throw response
+          throw response;
         })
         .catch(error => {
           error.should.have.status(422);
@@ -108,7 +108,7 @@ describe('API Routes', () => {
           error.response.body.should.be.a('object');
           error.response.body.should.have.property('error');
           error.response.body.error.should.equal('You are missing the required parameter name');
-        })
+        });
     });
 
     it('should return error message if reason is missing from request body', () => {
@@ -119,7 +119,7 @@ describe('API Routes', () => {
           cleanliness: 'Rancid'
         })
         .then(response => {
-          throw response
+          throw response;
         })
         .catch(error => {
           error.should.have.status(422);
@@ -127,7 +127,7 @@ describe('API Routes', () => {
           error.response.body.should.be.a('object');
           error.response.body.should.have.property('error');
           error.response.body.error.should.equal('You are missing the required parameter reason');
-        })
+        });
     });
 
     it('should return error message if cleanliness is missing from request body', () => {
@@ -138,15 +138,16 @@ describe('API Routes', () => {
           reason: 'Why Not?'
         })
         .then(response => {
-          throw response
+          throw response;
         })
         .catch(error => {
           error.should.have.status(422);
           error.response.should.be.json;
           error.response.body.should.be.a('object');
           error.response.body.should.have.property('error');
-          error.response.body.error.should.equal('You are missing the required parameter cleanliness');
-        })
+          error.response.body.error.should.equal(
+            'You are missing the required parameter cleanliness');
+        });
     });
 
     it('should return 404 if the URL is mistyped', () => {
@@ -162,7 +163,7 @@ describe('API Routes', () => {
         })
         .catch(error => {
           error.should.have.status(404);
-        })
+        });
     });
   });
 
@@ -194,11 +195,11 @@ describe('API Routes', () => {
             })
             .catch(error => {
               throw error;
-            })
+            });
         })
         .catch(error => {
           throw error;
-        })
+        });
     });
 
     it('should provide error message if item does not exist', () => {
@@ -213,7 +214,7 @@ describe('API Routes', () => {
           error.response.body.should.be.a('object');
           error.response.body.should.have.property('error');
           error.response.body.error.should.equal('No item with id 100000000 found.');
-        })
+        });
     });
 
     it('should return 404 if URL is mistyped', () => {
@@ -224,7 +225,7 @@ describe('API Routes', () => {
         })
         .catch(error => {
           error.should.have.status(404);
-        })
+        });
     });
   });
 
@@ -238,7 +239,7 @@ describe('API Routes', () => {
           cleanliness: 'Sparkling'
         })
         .then(response => {
-          return response.body.id
+          return response.body.id;
         })
         .then(id => {
           return chai.request(server)
@@ -253,11 +254,11 @@ describe('API Routes', () => {
             })
             .catch(error => {
               throw error;
-            })
+            });
         })
         .catch(error => {
           throw error;
-        })
+        });
     });
 
     it('should return a success message if the patch went through (name)', () => {
@@ -269,7 +270,7 @@ describe('API Routes', () => {
           cleanliness: 'Sparkling'
         })
         .then(response => {
-          return response.body.id
+          return response.body.id;
         })
         .then(id => {
           return chai.request(server)
@@ -285,11 +286,11 @@ describe('API Routes', () => {
             })
             .catch(error => {
               throw error;
-            })
+            });
         })
         .catch(error => {
           throw error;
-        })
+        });
     });
 
     it('should return an error message if item does not exist', () => {
@@ -308,7 +309,7 @@ describe('API Routes', () => {
           error.response.should.be.json;
           error.response.body.should.be.a('object');
           error.response.body.error.should.equal('No item with id 10000000 found.');
-        })
+        });
     });
   });
 });
